@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import Landing from './views/Landing.js';
+import Content from './views/Content.js';
+import { AuthProvider, useAuth } from "./functions/auth";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React, { useState, useContext, createContext } from "react";
 
-export default App;
+
+const App = () => {
+  const { user } = useAuth();
+
+  return user ? <Content /> : <Landing />;
+};
+
+const Root = () => (
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
+
+export default Root;
