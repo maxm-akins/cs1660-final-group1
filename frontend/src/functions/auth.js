@@ -1,16 +1,34 @@
-// auth.js
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
+import { auth, provider } from "./firebase";
+import {
+    signInWithPopup,
+    signOut as firebaseSignOut,
+    onAuthStateChanged
+} from "firebase/auth";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
-    const signIn = (username) => {
-        setUser({ name: username });
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+            setUser(firebaseUser);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const signIn = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            setUser(result.user);
+        } catch (error) {
+            console.error("Google Sign-In Error:", error);
+        }
     };
 
-    const signOut = () => {
+    const signOut = async () => {
+        await firebaseSignOut(auth);
         setUser(null);
     };
 

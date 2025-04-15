@@ -1,22 +1,12 @@
-import { useAuth } from "../functions/auth";
 import React from "react";
-import { Container, Typography, Button, Box, AppBar, Toolbar, Grid, Paper } from "@mui/material";
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import { useState } from "react";
+import { Container, Typography, Button, Box, Grid, Paper } from "@mui/material";
 import Appbar from "../components/Appbar";
 
 const Landing = () => {
-    const { signIn } = useAuth();
-
-    const handleSignIn = () => {
-        signIn("Jane Doe");
-    };
 
     return (
         <Box>
-
             <Appbar />
-
             <Container maxWidth="md" sx={ { py: 8 } }>
                 <Grid container spacing={ 4 } alignItems="center">
                     <Grid item xs={ 12 } md={ 6 }>

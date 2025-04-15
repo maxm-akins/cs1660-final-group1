@@ -2,8 +2,7 @@ import './App.css';
 import Landing from './views/Landing.js';
 import Content from './views/Content.js';
 import { AuthProvider, useAuth } from "./functions/auth";
-
-import React, { useState, useContext, createContext } from "react";
+import React from "react";
 
 
 const App = () => {

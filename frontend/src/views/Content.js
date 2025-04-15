@@ -1,7 +1,5 @@
-import { useAuth } from "../functions/auth";
 import React, { useState } from "react";
 import {
-    Box,
     Container,
     Typography,
     TextField,
@@ -15,7 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Appbar from "../components/Appbar";
 
 const Content = () => {
-    const { user, signOut } = useAuth();
     const [notes, setNotes] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -36,7 +33,6 @@ const Content = () => {
     return (
         <>
             <Appbar />
-
             <Container maxWidth="md" sx={ { py: 4 } }>
                 <Typography variant="h4" gutterBottom>
                     Write a New Note
