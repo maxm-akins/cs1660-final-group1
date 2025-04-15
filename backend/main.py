@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from gcs_utils import upload_note, get_note
+from gcp import upload_note, get_note
 
 app = FastAPI()
 
