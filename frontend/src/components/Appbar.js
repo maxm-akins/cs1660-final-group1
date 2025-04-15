@@ -8,7 +8,7 @@ const Appbar = () => {
     const { signIn, signOut, user } = useAuth();
 
     const handleSignIn = () => {
-        signIn("Jane Doe");
+        signIn();
     };
     const handleSignOut = () => {
         signOut();
