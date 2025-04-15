@@ -1,50 +1,124 @@
-import { useAuth } from "../functions/auth";
 import React from "react";
-import { Container, Typography, Button, Box, AppBar, Toolbar, Grid, Paper } from "@mui/material";
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import { useState } from "react";
+import {
+    Container,
+    Typography,
+    Button,
+    Box,
+    Grid,
+    Card,
+    CardContent,
+    useTheme,
+} from "@mui/material";
 import Appbar from "../components/Appbar";
+import { useAuth } from "../functions/auth";
+
+const testimonials = [
+    {
+        quote: "I never forget an idea now. This is exactly what I needed.",
+        author: "– Happy User",
+    },
+    {
+        quote: "Fast, clean, and just works. It’s now part of my daily workflow.",
+        author: "– Productive Pete",
+    },
+    {
+        quote: "It's a game changer for my note-taking. Highly recommend!",
+        author: "– This was made up by the devs",
+    },
+    {
+        quote: "Honestly, seems like a silly app made for a class project.",
+        author: "– Honest User",
+    },
+];
 
 const Landing = () => {
+    const theme = useTheme();
     const { signIn } = useAuth();
-
-    const handleSignIn = () => {
-        signIn("Jane Doe");
-    };
 
     return (
         <Box>
-
             <Appbar />
+            <Container
+                maxWidth="lg"
+                sx={ {
+                    py: { xs: 8, md: 12 },
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
+                } }
+            >
+                {/* Headline + CTA */ }
+                <Box sx={ { maxWidth: 1200, mb: 8 } }>
+                    <Typography
+                        variant="h2"
+                        component="h1"
+                        sx={ { fontWeight: 700, mb: 2, lineHeight: 1.2 } }
+                    >
+                        Organize Your Thoughts Effortlessly
+                    </Typography>
+                    <Typography variant="h6" color="text.secondary" sx={ { mb: 4 } }>
+                        NoteMaster helps you capture ideas, tasks, and inspirations
+                        wherever you are. Clean, simple, and built with the user in mind.
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        sx={ {
+                            borderRadius: 8,
+                            px: 4,
+                            py: 1.5,
+                            fontSize: "1rem",
+                        } }
+                        onClick={ signIn }
+                    >
+                        Get Started
+                    </Button>
+                </Box>
 
-            <Container maxWidth="md" sx={ { py: 8 } }>
-                <Grid container spacing={ 4 } alignItems="center">
-                    <Grid item xs={ 12 } md={ 6 }>
-                        <Typography variant="h3" component="h1" gutterBottom>
-                            Organize Your Thoughts Effortlessly
-                        </Typography>
-                        <Typography variant="h6" color="text.secondary" paragraph>
-                            NoteMaster helps you capture ideas, tasks, and inspirations wherever you are. Clean, simple, and built for speed.
-                        </Typography>
-                        <Button variant="contained" size="large" sx={ { mt: 2 } }>
-                            Get Started
-                        </Button>
-                    </Grid>
-
-                    <Grid item xs={ 12 } md={ 6 }>
-                        <Paper elevation={ 3 } sx={ { p: 3, textAlign: "center" } }>
-                            <Typography variant="subtitle1" color="text.secondary">
-                                "I never forget an idea now. This is exactly what I needed."
-                            </Typography>
-                            <Typography variant="body2" sx={ { mt: 1 } }>
-                                – Happy User
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                {/* Testimonials Section */ }
+                <Grid container spacing={ 4 } justifyContent="center">
+                    { testimonials.map((t, index) => (
+                        <Grid item key={ index } xs={ 12 } sm={ 6 } md={ 4 }>
+                            <Card
+                                elevation={ 4 }
+                                sx={ {
+                                    height: "100px",
+                                    width: "400px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "space-between",
+                                    p: 3,
+                                    borderRadius: 3,
+                                } }
+                            >
+                                <CardContent sx={ { flexGrow: 1 } }>
+                                    <Typography
+                                        variant="body1"
+                                        color="text.secondary"
+                                        sx={ { fontStyle: "italic", mb: 2 } }
+                                    >
+                                        "{ t.quote }"
+                                    </Typography>
+                                    <Typography variant="body2" sx={ { fontWeight: 500 } }>
+                                        { t.author }
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    )) }
                 </Grid>
             </Container>
 
-            <Box sx={ { py: 4, textAlign: "center", backgroundColor: '#f5f5f5' } }>
+            {/* Footer */ }
+            <Box
+                sx={ {
+                    py: 3,
+                    textAlign: "center",
+                    backgroundColor: theme.palette.grey[100],
+                    mt: 8,
+                } }
+            >
                 <Typography variant="body2" color="text.secondary">
                     © { new Date().getFullYear() } NoteMaster. All rights reserved.
                 </Typography>

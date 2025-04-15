@@ -1,7 +1,6 @@
 import React from "react";
-import { Container, Typography, Button, Box, AppBar, Toolbar, Grid, Paper } from "@mui/material";
+import { Typography, Button, AppBar, Toolbar, } from "@mui/material";
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import { useState } from "react";
 import { useAuth } from "../functions/auth";
 
 
@@ -9,7 +8,7 @@ const Appbar = () => {
     const { signIn, signOut, user } = useAuth();
 
     const handleSignIn = () => {
-        signIn("Jane Doe");
+        signIn();
     };
     const handleSignOut = () => {
         signOut();
