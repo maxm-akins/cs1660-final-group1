@@ -58,7 +58,7 @@ const Content = () => {
             };
 
             try {
-                const response = await fetch(` http://0.0.0.0:8000/api/notes/${noteId}`, {
+                const response = await fetch(` http://0.0.0.0:8000/api/notes/create/${noteId}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -83,9 +83,38 @@ const Content = () => {
         }
     };
 
-    const handleDeleteNote = (id) => {
-        setNotes(notes.filter((note) => note.id !== id));
-    };
+    const handleDeleteNote = async (noteId) => {
+        if (!user) {
+          console.error("User is not authenticated");
+          return;
+        }
+        const userId = user.uid;
+      
+        try {
+          const response = await fetch(
+            `http://localhost:8000/api/notes/delete/${noteId}?user_id=${user.uid}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ user_id: userId }),
+            }
+          );
+      
+          if (!response.ok) {
+            throw new Error("Failed to delete note");
+          }
+      
+          const data = await response.json();
+          console.log("Delete response:", data);
+      
+          await getNotes();
+        } catch (error) {
+          console.error("Error deleting note:", error);
+        }
+      };
+      
 
     return (
         <>
@@ -144,7 +173,7 @@ const Content = () => {
 
                 <Grid container spacing={ 4 } justifyContent="center">
                     { notes.map((note) => (
-                        <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ note.id }>
+                        <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ note.note_id }>
                             <Card
                                 elevation={ 3 }
                                 sx={ {
@@ -171,7 +200,7 @@ const Content = () => {
                                 </CardContent>
 
                                 <IconButton
-                                    onClick={ () => handleDeleteNote(note.id) }
+                                    onClick={ () => handleDeleteNote(note.note_id) }
                                     sx={ {
                                         position: "absolute",
                                         top: 8,

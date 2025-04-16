@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from models import Note
-from gcp import upload_note, get_notes
+from gcp import upload_note, get_notes, delete_note_gcp
 
 app = FastAPI()
 
@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/api/notes/{note_id}")
+@app.post("/api/notes/create/{note_id}")
 async def create_note(note_id: str, note: Note):
     """
     Create or update a note for the given user.
@@ -27,6 +27,24 @@ async def create_note(note_id: str, note: Note):
         return {"message": "Note uploaded successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error uploading note: {e}")
+
+@app.post("/api/notes/delete/{note_id}")
+async def delete_note_endpoint(
+    note_id: str,
+    user_id: str = Query(..., description="The UID of the user who owns the note")
+):
+    """
+    Delete a note for the given user.
+    Path param:
+      - note_id: the note’s identifier
+    Query param:
+      - user_id: the owner’s UID
+    """
+    try:
+        delete_note_gcp(user_id, note_id)
+        return {"message": "Note deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting note: {e}")
 
 @app.get("/api/notes")
 async def read_notes(user_id: str = Query(...)):
