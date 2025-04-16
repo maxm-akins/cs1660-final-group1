@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     Container,
     Typography,
@@ -14,25 +14,107 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Appbar from "../components/Appbar";
+import { useAuth } from "../functions/auth";
 
 const Content = () => {
     const [notes, setNotes] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const theme = useTheme();
+    const { user } = useAuth();
 
-    const handleAddNote = () => {
+    const getNotes = useCallback(async () => {
+        if (!user) {
+          console.error("User is not authenticated");
+          return;
+        }
+        try {
+          const response = await fetch(`http://localhost:8000/api/notes?user_id=${user.uid}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch notes");
+          }
+          const data = await response.json();
+          setNotes(data.notes);
+        } catch (error) {
+          console.error("Error fetching notes:", error);
+        }
+      }, [user]);
+
+    useEffect(() => {
+        if (user) {
+            getNotes();
+        }
+    }, [user, getNotes]);
+
+    const handleAddNote = async () => {
         if (title.trim() && content.trim()) {
-            const newNote = { title, content, id: Date.now() };
-            setNotes([newNote, ...notes]);
-            setTitle("");
-            setContent("");
+            const noteId = Date.now().toString();
+            const userId = user.uid;
+            
+            const newNote = {
+                note_id: noteId,
+                user_id: userId,
+                content: content,
+            };
+
+            try {
+                const response = await fetch(` http://0.0.0.0:8000/api/notes/create/${noteId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newNote),
+                });
+
+                if (!response.ok) {
+                throw new Error("Failed to add note");
+                }
+
+                const data = await response.json();
+                console.log("Server Response:", data);
+                setNotes([newNote, ...notes]);
+
+                await getNotes();
+                setTitle("");
+                setContent("");
+            } catch (error) {
+                console.error("Error adding note:", error);
+            }
         }
     };
 
-    const handleDeleteNote = (id) => {
-        setNotes(notes.filter((note) => note.id !== id));
-    };
+    const handleDeleteNote = async (noteId) => {
+        if (!user) {
+          console.error("User is not authenticated");
+          return;
+        }
+        const userId = user.uid;
+      
+        try {
+          const response = await fetch(
+            `http://localhost:8000/api/notes/delete/${noteId}?user_id=${user.uid}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ user_id: userId }),
+            }
+          );
+      
+          if (!response.ok) {
+            throw new Error("Failed to delete note");
+          }
+      
+          const data = await response.json();
+          console.log("Delete response:", data);
+      
+          await getNotes();
+        } catch (error) {
+          console.error("Error deleting note:", error);
+        }
+      };
+      
 
     return (
         <>
@@ -91,7 +173,7 @@ const Content = () => {
 
                 <Grid container spacing={ 4 } justifyContent="center">
                     { notes.map((note) => (
-                        <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ note.id }>
+                        <Grid item xs={ 12 } sm={ 6 } md={ 3 } key={ note.note_id }>
                             <Card
                                 elevation={ 3 }
                                 sx={ {
@@ -118,7 +200,7 @@ const Content = () => {
                                 </CardContent>
 
                                 <IconButton
-                                    onClick={ () => handleDeleteNote(note.id) }
+                                    onClick={ () => handleDeleteNote(note.note_id) }
                                     sx={ {
                                         position: "absolute",
                                         top: 8,
