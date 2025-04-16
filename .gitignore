@@ -1,2 +1,3 @@
 .venv
-cs1660-final-group1-9159954a6af3.json
+__pycache__/
+*.pyc

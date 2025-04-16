@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     Container,
     Typography,
@@ -14,19 +14,72 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Appbar from "../components/Appbar";
+import { useAuth } from "../functions/auth";
 
 const Content = () => {
     const [notes, setNotes] = useState([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const theme = useTheme();
+    const { user } = useAuth();
 
-    const handleAddNote = () => {
+    const getNotes = useCallback(async () => {
+        if (!user) {
+          console.error("User is not authenticated");
+          return;
+        }
+        try {
+          const response = await fetch(`http://localhost:8000/api/notes?user_id=${user.uid}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch notes");
+          }
+          const data = await response.json();
+          setNotes(data.notes);
+        } catch (error) {
+          console.error("Error fetching notes:", error);
+        }
+      }, [user]);
+
+    useEffect(() => {
+        if (user) {
+            getNotes();
+        }
+    }, [user, getNotes]);
+
+    const handleAddNote = async () => {
         if (title.trim() && content.trim()) {
-            const newNote = { title, content, id: Date.now() };
-            setNotes([newNote, ...notes]);
-            setTitle("");
-            setContent("");
+            const noteId = Date.now().toString();
+            const userId = user.uid;
+            
+            const newNote = {
+                note_id: noteId,
+                user_id: userId,
+                content: content,
+            };
+
+            try {
+                const response = await fetch(` http://0.0.0.0:8000/api/notes/${noteId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newNote),
+                });
+
+                if (!response.ok) {
+                throw new Error("Failed to add note");
+                }
+
+                const data = await response.json();
+                console.log("Server Response:", data);
+                setNotes([newNote, ...notes]);
+
+                await getNotes();
+                setTitle("");
+                setContent("");
+            } catch (error) {
+                console.error("Error adding note:", error);
+            }
         }
     };
 

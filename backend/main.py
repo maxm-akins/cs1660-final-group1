@@ -1,8 +1,17 @@
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from models import Note
-from gcp import upload_note, get_note
+from gcp import upload_note, get_notes
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/api/notes/{note_id}")
 async def create_note(note_id: str, note: Note):
@@ -19,18 +28,23 @@ async def create_note(note_id: str, note: Note):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error uploading note: {e}")
 
-@app.get("/api/notes/{note_id}")
-async def read_note(note_id: str, user_id: str = Query(...)):
+@app.get("/api/notes")
+async def read_notes(user_id: str = Query(...)):
     """
-    Retrieve a note for the specified user.
-    The note is expected to be found at: users/{user_id}/{note_id}.txt.
-    The client must provide the user_id as a query parameter.
+    Retrieve all notes for the specified user.
+    The notes are expected to be stored under: users/{user_id}/{note_id}.txt.
+    
+    Query Parameters:
+        user_id: The user's unique identifier.
+    
+    Returns:
+        A JSON object with a "notes" key containing a list of note objects.
     """
     try:
-        content = get_note(user_id, note_id)
-        return {"content": content}
+        notes = get_notes(user_id)
+        return {"notes": notes}
     except Exception as e:
-        raise HTTPException(status_code=404, detail="Note not found")
+        raise HTTPException(status_code=404, detail="Notes not found")
 
 if __name__ == "__main__":
     import uvicorn
