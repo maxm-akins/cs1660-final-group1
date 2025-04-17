@@ -4,10 +4,9 @@ from typing import Optional
 
 class User(BaseModel):
     user_id: str
-    username: str
     email: EmailStr
-    display_name: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    num_notes: int
 
 class Note(BaseModel):
     note_id: str
