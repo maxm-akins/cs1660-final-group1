@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from backend.firebase import change_user_note_count, get_user_profile, save_user_profile
+from firestore import change_user_note_count, get_user_profile, save_user_profile
 from models import Note, User
 from gcp import upload_note, get_notes, delete_note_gcp
 
