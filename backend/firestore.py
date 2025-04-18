@@ -1,7 +1,9 @@
 from google.cloud import firestore
 
 # Uses ADC—make sure everyone runs `gcloud auth application-default login`
-db = firestore.Client()
+import os
+project_id = os.getenv("GOOGLE_CLOUD_PROJECT")  # or hardcode it
+db = firestore.Client(project=project_id)
 
 def save_user_profile(user_id: str, email: str) -> None:
     """

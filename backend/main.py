@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from firestore import change_user_note_count, get_user_profile, save_user_profile
 from models import Note, User
 from gcp import upload_note, get_notes, delete_note_gcp
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI()
 
@@ -13,6 +15,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# ✅ Mount the React frontend after app creation and before route definitions
+frontend_path = os.getenv("FRONTEND_DIR", "/app/backend/static")
+app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+
 
 @app.post("/api/notes/create/{note_id}")
 async def create_note(note_id: str, note: Note):
