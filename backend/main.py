@@ -10,14 +10,14 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# ✅ Mount the React frontend after app creation and before route definitions
+
 frontend_path = os.getenv("FRONTEND_DIR", "/app/backend/static")
-app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
+#app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
 
 
 @app.post("/api/notes/create/{note_id}")
@@ -97,7 +97,7 @@ async def read_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     return profile
 
-
+app.mount("/", StaticFiles(directory=frontend_path, html=True), name="static")
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
