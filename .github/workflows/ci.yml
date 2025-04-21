@@ -29,8 +29,8 @@ jobs:
           echo "${{ steps.auth.outputs.access_token }}" | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
 
       # configure/login with docker
-      - name: gcloud Configure Docker
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      #- name: gcloud Configure Docker
+       # run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       # setup docker buildx
       - name: Setup docker buildx
