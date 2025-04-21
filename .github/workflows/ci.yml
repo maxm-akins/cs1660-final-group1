@@ -46,4 +46,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:v1
+          outputs: type=image,push=true
           
