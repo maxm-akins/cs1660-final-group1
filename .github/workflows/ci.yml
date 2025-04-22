@@ -7,21 +7,21 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: "read"
+      id-token: "write"
     steps:
       # checkout code
       - uses: actions/checkout@v4
 
       # authenticate with GCP with workload identity provider
-      - uses: 'google-github-actions/auth@v2'
+      - uses: "google-github-actions/auth@v2"
         id: auth
         name: Authenticate to GCP
         with:
-          project_id: 'cs1660-final-group1' # update with your project ID
-          service_account: 'cicd-service-account@cs1660-final-group1.iam.gserviceaccount.com'
-          workload_identity_provider: 'projects/1037276530414/locations/global/workloadIdentityPools/github/providers/my-repo' # update with your Workload Identity Pool
-          token_format: 'access_token'
+          project_id: "cs1660-final-group1" # update with your project ID
+          service_account: "cicd-service-account@cs1660-final-group1.iam.gserviceaccount.com"
+          workload_identity_provider: "projects/1037276530414/locations/global/workloadIdentityPools/github/providers/my-repo" # update with your Workload Identity Pool
+          token_format: "access_token"
 
       # login Docker to Artifact registry
       - name: Docker login to Artifact Registry
@@ -30,7 +30,7 @@ jobs:
 
       # configure/login with docker
       #- name: gcloud Configure Docker
-       # run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      # run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       # setup docker buildx
       - name: Setup docker buildx
@@ -45,6 +45,5 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:v1
+          tags: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:latest
           outputs: type=image,push=true
-          
