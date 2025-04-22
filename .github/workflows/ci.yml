@@ -45,5 +45,5 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:latest
+          tags: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:v2
           outputs: type=image,push=true
