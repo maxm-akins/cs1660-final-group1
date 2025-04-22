@@ -9,7 +9,6 @@ import {
     CardContent,
     useTheme,
 } from "@mui/material";
-import Appbar from "../components/Appbar";
 import { useAuth } from "../functions/auth";
 
 const testimonials = [
@@ -37,7 +36,6 @@ const Landing = () => {
 
     return (
         <Box>
-            <Appbar />
             <Container
                 maxWidth="lg"
                 sx={ {
@@ -46,6 +44,7 @@ const Landing = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     textAlign: "center",
+                    minHeight: "90vh",
                 } }
             >
                 {/* Headline + CTA */ }
@@ -110,19 +109,7 @@ const Landing = () => {
                 </Grid>
             </Container>
 
-            {/* Footer */ }
-            <Box
-                sx={ {
-                    py: 3,
-                    textAlign: "center",
-                    backgroundColor: theme.palette.grey[100],
-                    mt: 8,
-                } }
-            >
-                <Typography variant="body2" color="text.secondary">
-                    © { new Date().getFullYear() } NoteMaster. All rights reserved.
-                </Typography>
-            </Box>
+
         </Box>
     );
 };
