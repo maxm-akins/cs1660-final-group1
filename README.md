@@ -80,5 +80,3 @@ _Ways the app might be changed or utilized differently given a more professional
 - [samarohan](https://github.com/samarohan)
 - [nLininger](https://github.com/nLininger)
 - [ethannerone](https://github.com/ethannerone)
-
-xwx
