@@ -72,6 +72,8 @@ _Deployment instructions will be provided here, detailing how to deploy the appl
 
 _Ways the app might be changed or utilized differently given a more professional and official production_
 
+-Notes storage
+
 ## 👥 Contributors
 
 - [maxm-akins](https://github.com/maxm-akins)
