@@ -36,7 +36,7 @@ jobs:
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v3
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
 
       # build and push the image
       - name: Build and Push
