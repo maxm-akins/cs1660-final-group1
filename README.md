@@ -78,5 +78,5 @@ _Ways the app might be changed or utilized differently given a more professional
 
 - [maxm-akins](https://github.com/maxm-akins)
 - [samarohan](https://github.com/samarohan)
-- [nLininger](https://github.com/nLininger) .
+- [nLininger](https://github.com/nLininger) 
 - [ethannerone](https://github.com/ethannerone)
