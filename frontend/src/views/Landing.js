@@ -10,6 +10,7 @@ import {
     useTheme,
 } from "@mui/material";
 import { useAuth } from "../functions/auth";
+import note1 from "../note1.png";
 
 const testimonials = [
     {
@@ -18,7 +19,7 @@ const testimonials = [
     },
     {
         quote: "Fast, clean, and just works. It’s now part of my daily workflow.",
-        author: "– Productive Pete",
+        author: "– Productive User",
     },
     {
         quote: "It's a game changer for my note-taking. Highly recommend!",
@@ -27,6 +28,14 @@ const testimonials = [
     {
         quote: "Honestly, seems like a silly app made for a class project.",
         author: "– Honest User",
+    },
+    {
+        quote: "I don't think I will ever use a different note-taking app again.",
+        author: "– Dishonest User",
+    },
+    {
+        quote: "Pretty sure they are stealing your data. I would not trust this app.",
+        author: "– Dave",
     },
 ];
 
@@ -39,16 +48,17 @@ const Landing = () => {
             <Container
                 maxWidth="lg"
                 sx={ {
-                    py: { xs: 8, md: 12 },
+                    mt: 8,
+                    mb: 8,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     textAlign: "center",
-                    minHeight: "90vh",
+                    minHeight: "79vh",
                 } }
             >
                 {/* Headline + CTA */ }
-                <Box sx={ { maxWidth: 1200, mb: 8 } }>
+                <Box sx={ { maxWidth: 1200, mb: 2 } }>
                     <Typography
                         variant="h2"
                         component="h1"
@@ -67,7 +77,9 @@ const Landing = () => {
                             borderRadius: 8,
                             px: 4,
                             py: 1.5,
+                            mb: 2,
                             fontSize: "1rem",
+                            backgroundColor: "#57a1c2"
                         } }
                         onClick={ signIn }
                     >
@@ -76,19 +88,22 @@ const Landing = () => {
                 </Box>
 
                 {/* Testimonials Section */ }
-                <Grid container spacing={ 4 } justifyContent="center">
+                <Grid container spacing={ 4 } justifyContent="left">
                     { testimonials.map((t, index) => (
-                        <Grid item key={ index } xs={ 12 } sm={ 6 } md={ 4 }>
+                        <Grid item key={ index } size={ { xs: 12, sm: 6, md: 4 } } >
                             <Card
                                 elevation={ 4 }
                                 sx={ {
                                     height: "100px",
-                                    width: "400px",
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "space-between",
                                     p: 3,
                                     borderRadius: 3,
+                                    "&:hover": {
+                                        boxShadow: 6, // or use custom shadow like '0px 4px 20px rgba(0,0,0,0.2)'
+                                        transform: "translateY(-4px)",
+                                    },
                                 } }
                             >
                                 <CardContent sx={ { flexGrow: 1 } }>
@@ -107,6 +122,25 @@ const Landing = () => {
                         </Grid>
                     )) }
                 </Grid>
+                <Box
+                    sx={ {
+                        mt: 8,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: theme.palette.background.default,
+                    } }
+                >
+                    <Box
+                        component="img"
+                        src={ note1 }
+                        alt="Random"
+                        sx={ {
+                            width: "20%",
+
+                        } }
+                    />
+                </Box>
             </Container>
 
 

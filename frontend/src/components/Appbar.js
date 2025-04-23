@@ -1,7 +1,8 @@
 import React from "react";
-import { Typography, Button, AppBar, Toolbar, } from "@mui/material";
+import { Typography, Button, AppBar, Toolbar, Box } from "@mui/material";
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import { useAuth } from "../functions/auth";
+import note1 from "../note1.png";
 
 
 const Appbar = () => {
@@ -16,11 +17,25 @@ const Appbar = () => {
 
     return (
         <AppBar position="static" color="primary">
-            <Toolbar>
-                <NoteAltIcon sx={ { mr: 1 } } />
+            <Toolbar
+                sx={ {
+                    backgroundColor: "#57a1c2",
+                } }>
+                <Box
+                    component="img"
+                    src={ note1 }
+                    alt="Random"
+                    sx={ {
+                        width: "30px",
+                        mr: 1,
+                    } }
+                >
+                </Box>
                 <Typography variant="h6" sx={ { flexGrow: 1 } }>
                     NoteMaster
                 </Typography>
+
+
                 { user ? (
 
                     <Button color="inherit" onClick={ handleSignOut }>
