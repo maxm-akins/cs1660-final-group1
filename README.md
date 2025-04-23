@@ -76,11 +76,13 @@ Our [ci.yml](.github/workflows/ci.yml) file holds all of the necessary code for 
 
 ## 👨‍💻 Usage
 
-Usage of the app is simple in nature. To use the note-taking features, one must sign in using Google's OAuth and once that is completed, they have full access.
+Usage of the app is simple in nature. To use the note-taking features, one must sign in using Google's OAuth and once that is completed, they have full access. Note creation because as easy as filling out the form. Active notes appear below the entry form and can be deleted with the press of the red trash button at the bottom of each note.
 
-## 💻 Technical Details
+See video demo included in the project submission for a full breakdown in less than three minutes!
 
-_Deployment instructions will be provided here, detailing how to deploy the application to a production environment._
+## 💻 Architecture Details
+
+![Architecture Diagram](diagram.png)
 
 ## 🤔 Comments and Considerations
 
@@ -93,6 +95,10 @@ _In this section, we include some details that we felt important to mention abou
 ##### 2. User data
 
 - In a fully flushed out version of this application, we would also include a profile page with some customizable options and information. However, for the sake of time and reduced complexity of the project, we figured it would be unnecessary for the delivery of the requirements.
+
+##### 3. User data security
+
+- For reasons similar to those mentioned in the second point above, our approach to securing user data is lack luster at best. In a true environment, one outside CS 1660, a much more secure methodology would be in place.
 
 ## 👥 Contributors
 
