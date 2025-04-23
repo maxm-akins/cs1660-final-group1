@@ -47,3 +47,10 @@ jobs:
           push: true
           tags: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:latest
           outputs: type=image,push=true
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: notes-app # <== Your Cloud Run service name
+          region: us-central1
+          image: us-central1-docker.pkg.dev/cs1660-final-group1/app-repo/notes-app:latest
