@@ -6,7 +6,7 @@ This repository contains the final project for CS1660, developed by Group 1.
 
 The project features a full-stack web application with a **React.js** frontend and a **FastAPI** backend, containerized using **Docker**.
 
-Google Cloud Platform (GCP) is employed to fulfill the functionalities of the website. The following GCP features are used:
+Google Cloud Platform (GCP) is employed to fulfill the website's functionalities. The following GCP features are used:
 
 - **Firestore**: Used as the primary NoSQL database to store user information
 
@@ -64,7 +64,7 @@ cs1660-final-group1/
 
 ## 🧱 Setup
 
-We settled on a React frontend and FastAPI backend due to combined group experience and the work we have already done in class. As you can see in the project structure above, we have our project split into two main folders each holding the required components for its side of the application. We utilize docker-compose and our DockerFile to containerize the application.
+We settled on a React frontend and FastAPI backend due to our combined group experience and the work we had already done in class. As you can see in the project structure above, our project is split into two main folders, each holding the required components for its side of the application. We utilize docker-compose and our DockerFile to containerize the application.
 
 Our [ci.yml](.github/workflows/ci.yml) file holds all of the necessary code for implementing our CI/CD Pipeline (GitHub Actions). Those steps are as follows:
 
@@ -82,7 +82,7 @@ See video demo included in the project submission for a full breakdown in less t
 
 ## 💻 Architecture Details
 
-Below is a diagram of how our project is infastructured. The diagram includes all components interations:
+Below is a diagram of how our project is infastructured. The diagram includes all components interactions:
 
 - Frontend and backend passing data
 - Frontend connecting to Firebase to authenticate users
@@ -93,7 +93,7 @@ Below is a diagram of how our project is infastructured. The diagram includes al
 
 ## 🤔 Comments and Considerations
 
-_In this section, we include some details that we felt important to mention about our application._
+_In this section, we include some details we felt important to mention about our application._
 
 ##### 1. Notes storage
 
@@ -101,11 +101,11 @@ _In this section, we include some details that we felt important to mention abou
 
 ##### 2. User data
 
-- In a fully flushed out version of this application, we would also include a profile page with some customizable options and information. However, for the sake of time and reduced complexity of the project, we figured it would be unnecessary for the delivery of the requirements.
+- In a fully flushed out version of this application, we would also include a profile page with some customizable options and information. However, for the sake of time and reduced complexity of the project, we figured it would be unnecessary for the delivery of the project requirements.
 
 ##### 3. User data security
 
-- For reasons similar to those mentioned in the second point above, our approach to securing user data is lack luster at best. In a true environment, one outside CS 1660, a much more secure methodology would be in place.
+For reasons similar to those mentioned in the second point above, our approach to securing user data is lackluster at best. In a true live environment outside CS 1660, a much more secure methodology would be in place.
 
 ## 👥 Contributors
 
