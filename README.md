@@ -1,5 +1,7 @@
 # CS1660 Final Project – Group 1
 
+#### Access final product [here](https://notes-app-1037276530414.us-central1.run.app/)!
+
 This repository contains the final project for CS1660, developed by Group 1.
 
 ##### Our project is a cloud-based note-taking application that allows users to securely sign in, create and delete notes, and access them anytime. When users return, their notes will always be saved and ready.
