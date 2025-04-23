@@ -1,6 +1,4 @@
-# CS1660 Final Project – Group 1
-
-#### Access final product [here](https://notes-app-1037276530414.us-central1.run.app/)!
+# CS1660 Final Project – Group 1 - [LIVE APP](https://notes-app-1037276530414.us-central1.run.app/)
 
 This repository contains the final project for CS1660, developed by Group 1.
 
@@ -78,11 +76,18 @@ Our [ci.yml](.github/workflows/ci.yml) file holds all of the necessary code for 
 
 ## 👨‍💻 Usage
 
-Usage of the app is simple in nature. To use the note-taking features, one must sign in using Google's OAuth and once that is completed, they have full access. Note creation because as easy as filling out the form. Active notes appear below the entry form and can be deleted with the press of the red trash button at the bottom of each note.
+Usage of the app is simple in nature. To use the note-taking features, one must sign in using Google's OAuth and once that is completed, they have full access. Note creation becomes as easy as filling out the form. Active notes appear below the entry form and can be deleted with the press of the red trash button at the bottom of each note.
 
 See video demo included in the project submission for a full breakdown in less than three minutes!
 
 ## 💻 Architecture Details
+
+Below is a diagram of how our project is infastructured. The diagram includes all components interations:
+
+- Frontend and backend passing data
+- Frontend connecting to Firebase to authenticate users
+- Backend sending and requesting data and files from our DB and Cloud Store bucket.
+- The building of our app's image, storing that image, and using it to build the live application
 
 ![Architecture Diagram](diagram.png)
 
